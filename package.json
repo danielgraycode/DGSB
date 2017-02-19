@@ -1,0 +1,12 @@
+{
+  "name": "dgselfbot",
+  "version": "1.0.0",
+  "description": "An amazing SELFBOT!",
+  "main": "main.js",
+  "scripts": {},
+  "author": "Daniel Gray",
+  "license": "MIT",
+  "devDependencies": {
+    "simple-git": "^1.66.0"
+  }
+}
