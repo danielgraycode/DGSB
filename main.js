@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const updater = require("./update.js")
 const bot = new Discord.Client();
 const config = require('./config.json');
-const version = "v1.2.0"
+const version = "v1.3.0"
 
 //Now for the code!
 bot.on('ready', () => {
@@ -194,6 +194,11 @@ bot.on('message', (message) => {
                   }
               }
           });
+        }
+        if (message.content == config.prefix + "credits") {
+          message.edit(" :arrows_counterclockwise: Now updating! :arrows_counterclockwise: ");
+          updater.runUpdate()
+
         }
     }
 });
