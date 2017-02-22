@@ -1,7 +1,8 @@
 const child_process = require('child_process');
 
 
-function runUpdate(){
+function runUpdate(message){
 child_process.run("git pull git://github.com/danielgraycode/DGSB.git");
 console.info("Updated.")
+message.edit("√ Update complete! √")
 };
