@@ -1,10 +1,11 @@
 ///Lets load everything up!
 "use strict";
 const Discord = require('discord.js');
+//Essential to update:
+const updater = require("./update.js")
 const bot = new Discord.Client();
-const child_process = require("child_process");
 const config = require('./config.json');
-const version = "V1.5.0"
+const version = "v1.2.0"
 
 //Now for the code!
 bot.on('ready', () => {
@@ -19,9 +20,7 @@ function clean(text) {
         return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
     else
         return text;
-};
-
-
+}
 
 bot.on('message', (message) => {
     let args = message.content.split(" ").slice(1);
@@ -35,7 +34,7 @@ bot.on('message', (message) => {
                     color: 0x06DF00,
                     description: "Hey!",
                     footer: {
-                        text: "Message by Daniel-Selfbot. " + version
+                        text: "Message by DGSB. " + version
                     }
                 }
             });
@@ -61,7 +60,7 @@ bot.on('message', (message) => {
             color: 0xff0000,
             description: " :x: You did not specify an amount to delete :x: ",
             footer: {
-              text: "Message by Daniel-Selfbot. " + version
+              text: "Message by DGSB. " + version
             }
           }});
         } else {
@@ -98,20 +97,18 @@ bot.on('message', (message) => {
         url: usr.avatarURL
       },
       footer: {
-        text: "Message by Daniel-Selfbot. " + version
+        text: "Message by DGSB. " + version
       }
     }});
   };
 }
-            if (message.content == config.prefix + 'update'){
-                console.info("Now checking for updates.");
-                message.edit(" :arrows_counterclockwise: Now checking for updates :arrows_counterclockwise: ");
-                console.info("Pulling from Github");
-                message.edit(" :arrows_counterclockwise: Pulling from GitHub :arrows_counterclockwise: ");
-                child_process.execSync('git pull git://github.com/danielgraycode/Selfbot.git').catch(console.error);
-                message.edit("√ Bot updated: Nodemon will restart the bot if needed. √").then(m => m.delete(1500));
-                console.info("Update complete.")
-            }
+        if (message.content == config.prefix + "shutdown") {
+            message.edit(" :arrows_counterclockwise: Shutting Down! :arrows_counterclockwise: ").then(message => {
+                setTimeout(() => {
+                    message.delete().then(() => process.exit(1));
+                }, 500);
+            });
+        };
         if (message.content.startsWith(config.prefix + "warn")) {
         let warnedUser = message.mentions.users.first();
         message.channel.sendMessage("", {
@@ -120,7 +117,7 @@ bot.on('message', (message) => {
                 color: 0xffcc00,
                 description: `<@${warnedUser.id}>, ${message.author} has given you a warning. This usually means you did something bad! \n Watch out in the future.`,
                 footer: {
-                    text: "Message by Daniel-Selfbot. " + version
+                    text: "Message by DGSB. " + version
                 }
             }
         });
@@ -138,7 +135,7 @@ bot.on('message', (message) => {
                     url: bot.user.avatarURL
                   },
                   footer: {
-                      text: "Message by Daniel-Selfbot. " + version
+                      text: "Message by DGSB. " + version
                   }
               }
           });
@@ -148,9 +145,9 @@ bot.on('message', (message) => {
               embed: {
                   title: `Daniel | danielgray.me`,
                   color: 0x06DF00,
-                  description: "The commands are: `test , eval , purge , info , shutdown , warn , setgame .`",
+                  description: "The commands are: `test , eval , purge , info , shutdown , warn , setgame , contact .`",
                   footer: {
-                      text: "Message by Daniel-Selfbot. " + version
+                      text: "Message by DGSB. " + version
                   }
               }
           });
@@ -164,7 +161,36 @@ bot.on('message', (message) => {
                   color: 0x06DF00,
                   description: "Status updated!",
                   footer: {
-                      text: "Message by Daniel-Selfbot. " + version
+                      text: "Message by DGSB. " + version
+                  }
+              }
+          });
+        }
+
+
+        if (message.content == config.prefix + "contact") {
+          message.delete();
+          message.channel.sendMessage("", {
+              embed: {
+                  title: `Contact info`,
+                  color: 0x06DF00,
+                  description: "**Website:** \n https://danielgray.me \n **GitHub:** \n https://github.com/danielgraycode \n **Keybase:** \n https://keybase.io/danielgray_ ",
+                  footer: {
+                      text: "Message by DGSB. " + version
+                  }
+              }
+          });
+        }
+
+        if (message.content == config.prefix + "credits") {
+          message.delete();
+          message.channel.sendMessage("", {
+              embed: {
+                  title: `Credits`,
+                  color: 0x06DF00,
+                  description: "Credits to the original maker and developer of DGSB, Daniel Gray. He can be found at https://github.com/danielgraycode or https://danielgray.me",
+                  footer: {
+                      text: "Message by DGSB. " + version
                   }
               }
           });
@@ -173,4 +199,3 @@ bot.on('message', (message) => {
 });
 
 bot.login(config.botToken);
-
