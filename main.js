@@ -195,7 +195,7 @@ bot.on('message', (message) => {
               }
           });
         }
-        if (message.content == config.prefix + "credits") {
+        if (message.content == config.prefix + "update") {
           message.edit(" :arrows_counterclockwise: Now updating! :arrows_counterclockwise: ");
           updater.runUpdate()
 
