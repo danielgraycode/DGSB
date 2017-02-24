@@ -1,8 +1,7 @@
-const child_process = require('child_process');
-
+const git = require("nodegit");
 
 function runUpdate(message){
-child_process.run("git pull git://github.com/danielgraycode/DGSB.git");
+git.pull("https://github.com/danielgraycode/DGSB")
 console.info("Updated.")
 message.edit("√ Update complete! √")
 };
